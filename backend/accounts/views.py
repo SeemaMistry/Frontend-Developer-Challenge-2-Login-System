@@ -85,7 +85,14 @@ class LoginView(APIView):
 class LogoutView(APIView):
 
     def post(self, request, format=None):
-        pass
+        try:
+            # logout user
+            auth.logout(request)
+            return Response({'success': 'successfully logged out user'})
+
+        except:
+            return Response({'error': 'Something went wrong when trying to logout'})
+
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 class GetCSRFTokenView(APIView):
