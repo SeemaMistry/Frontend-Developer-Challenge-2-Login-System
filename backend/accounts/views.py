@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.decorators import method_decorator
+from user_profile.models import UserProfile
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 class CheckAuthenticated(APIView):
@@ -52,6 +53,17 @@ class RegisterView(APIView):
                         
                         # create and save new profile (1:1 rs of User:user_profile)
                         # set userType and languge in user_profile
+                        user = User.objects.get(id=user.id)
+                        user_profile = UserProfile.objects.create(
+                            user=user,
+                            first_name=first_name,
+                            last_name=last_name,
+                            username=username,
+                            email=email,
+                            userType=userType,
+                            language=language
+                            )
+                        user_profile.save()
                         return Response({'success': 'new user created successfully'})
             else: 
                 return Response({'error': 'passwords do not match or password must be at least 8 characters'})
