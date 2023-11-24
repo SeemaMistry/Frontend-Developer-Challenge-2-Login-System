@@ -17,7 +17,33 @@ class RegisterView(APIView):
     permission_classes = (permissions.AllowAny, )
 
     def post(self, request, format=None):
-        pass
+         # retrieve user inputs for registration 
+        data = self.request.data
+        first_name = data['first_name']
+        last_name = data['last_name']
+        username = data['username']
+        password = data['password']
+        re_password = data['re_password']
+        email = data['email']
+
+        try:
+           # validate data then save new User
+            if password == re_password:
+                if User.objects.filter(username=username).exists():
+                    return Response({'error': 'username already exists'})
+                else:
+                    if len(password) < 8:
+                        return Response({'error': 'password must be at least 8 characters'})
+                    else:
+                        user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name)
+                        
+                        # create and save new profile (1:1 rs of User:user_profile)
+                        return Response({'success': 'new user created successfully'})
+            else: 
+                return Response({'error': 'passwords do not match'})
+            
+        except:
+            return Response({'error': 'Something went wrong when trying to create a new user'})
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 class LoginView(APIView):
