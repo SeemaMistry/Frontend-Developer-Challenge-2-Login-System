@@ -10,7 +10,19 @@ from django.utils.decorators import method_decorator
 class CheckAuthenticated(APIView):
 
     def get(self, request, format=None):
-        pass
+        # retrieve user
+        user = self.request.user
+        try:
+            # retrieve authentication status and pass response
+            isAuthenticated = user.is_authenticated
+            if isAuthenticated:
+                return Response({'isAuthenticated': 'success'})
+            else:
+                return Response({'isAuthenticated': 'error'})
+
+        except:
+            return Response({'error': 'Something went wrong when checking authentication status'})
+            
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 class RegisterView(APIView):
