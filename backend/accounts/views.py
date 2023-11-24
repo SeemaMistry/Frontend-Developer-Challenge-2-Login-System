@@ -46,7 +46,7 @@ class RegisterView(APIView):
                 if User.objects.filter(username=username).exists():
                     return Response({'error': 'username already exists'})
                 else:
-                    if len(password) >= 6:
+                    if len(password) < 6:
                         return Response({'error': 'password must be at least 8 characters'})
                     else:
                         user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name)
