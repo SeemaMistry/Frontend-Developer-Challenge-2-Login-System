@@ -62,7 +62,24 @@ class LoginView(APIView):
     permission_classes = (permissions.AllowAny, )
 
     def post(self, request, format=None):
-        pass
+        try:
+            # retireve data 
+            data = self.request.data
+            username = data['username'] # TODO: currently just accepting username to login 
+            password = data['password']
+
+            # use django.contrib.auth functions for login and authentication 
+            user = auth.authenticate(username=username, password=password)
+            
+            if user is not None:
+                auth.login(request, user)
+                return Response({'success': 'successful login and user authenticated'})
+            else:
+                return Response({'error': 'incorrect login credentials used'})
+
+        except:
+            return Response({'error': 'Something went wrong when trying to create a new user'})
+
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 class LogoutView(APIView):
