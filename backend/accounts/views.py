@@ -33,10 +33,10 @@ class RegisterView(APIView):
         data = self.request.data
         first_name = data['first_name']
         last_name = data['last_name']
-        username = data['username']
+        username = data['username'] # TODO: set restrictions on username to only allow letters and numbers. No special characters allowed.
         password = data['password']
         re_password = data['re_password']
-        email = data['email']
+        email = data['email'] # TODO: normalize email to lowercase before saving to database
 
         try:
            # validate data then save new User
@@ -65,15 +65,24 @@ class LoginView(APIView):
         try:
             # retireve data 
             data = self.request.data
-            username = data['username'] # TODO: currently just accepting username to login 
             password = data['password']
-
-            # use django.contrib.auth functions for login and authentication 
-            user = auth.authenticate(username=username, password=password)
+            login_input = data['login_input'] # dont know if "login_input" is an email or username they are using to login
+            
+            # determine if login_input is email or username
+            if '@' in login_input:
+                try:
+                    # get the user with this email address and pass the username to authenticate
+                    user = User.objects.get(email=login_input)
+                    user = auth.authenticate(username=user.username, password=password)
+                except:
+                    return Response({'error': 'no such email exists in the database'})            
+            else:
+                # authenticate as with username
+                user = auth.authenticate(username=login_input, password=password)
             
             if user is not None:
                 auth.login(request, user)
-                return Response({'success': 'successful login and user authenticated'})
+                return Response({'success': 'successful login and user authenticated', 'username':user.get_username()})
             else:
                 return Response({'error': 'incorrect login credentials used'})
 
