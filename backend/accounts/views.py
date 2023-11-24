@@ -37,6 +37,8 @@ class RegisterView(APIView):
         password = data['password'] # TODO: normalize username to database before saving
         re_password = data['re_password']
         email = data['email'] # TODO: normalize email to lowercase before saving to database
+        userType = data['userType'] # TODO: set in user_profile
+        language = data['language'] #TODO: set in user_profile
 
         try:
             if password == re_password:
@@ -49,6 +51,7 @@ class RegisterView(APIView):
                         user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name)
                         
                         # create and save new profile (1:1 rs of User:user_profile)
+                        # set userType and languge in user_profile
                         return Response({'success': 'new user created successfully'})
             else: 
                 return Response({'error': 'passwords do not match or password must be at least 8 characters'})
