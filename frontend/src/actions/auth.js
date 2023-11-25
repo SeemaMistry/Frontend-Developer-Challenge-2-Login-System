@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import { load_user } from './profile'
 import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
@@ -42,6 +43,7 @@ export const login = (login_input, password) => async dispatch => {
                 type: LOGIN_SUCCESS,
             })
             // TODO: load the user data
+            dispatch(load_user())
         }
     
     } catch (err) {
