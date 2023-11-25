@@ -1,9 +1,16 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
 
 const Login = () => {
+  // get user inputs from form
+  const [formData, setFormData] = useState({
+    login_input: '',
+    password: ''
+  })
 
-  const onChange = e => {}
+  const {login_input, password} = formData // destructure formData
+
+  const onChange = e => setFormData({...formData, [e.target.name]:e.target.value})
 
   const onSubmit = e => {}
 
@@ -13,14 +20,14 @@ const Login = () => {
       <p>Sign in to your Prepr Labs application</p>
       <form onSubmit={onSubmit}>
         <div className='form-group'>
-          <label className='form-label mt-3'>Username: </label>
+          <label className='form-label mt-3'>Login with your username or email: </label>
           <input
             className='form-control'
             type='text'
-            placeholder='username'
+            placeholder='username or email'
             onChange={onChange}
-            // value={username}
-            name='username'
+            value={login_input}
+            name='login_input'
             required
           />
         </div>
@@ -31,7 +38,7 @@ const Login = () => {
             type='password'
             placeholder='password'
             onChange={onChange}
-            // value={password}
+            value={password}
             name='password'
             minLength='6'
             required
