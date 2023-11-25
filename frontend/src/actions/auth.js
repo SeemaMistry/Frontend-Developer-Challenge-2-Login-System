@@ -14,6 +14,29 @@ import {
 
 export const register = (first_name, last_name, username, password, re_password, email, user_type, language) => async dispatch => {
     // register success and fail
+    const config = {
+        headers:{
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-CSRFToken': Cookies.get('csrftoken')
+        }
+    }
+    const body = JSON.stringify({first_name, last_name, username, password, re_password, email, user_type, language})
+    try{
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/accounts/register`, body, config)
+
+        if (res.data.error) {
+            dispatch({
+                type:REGISTER_FAIL
+            })
+        } else {
+            dispatch({
+                type:REGISTER_SUCCESS
+            })
+        }
+    } catch (err) {
+
+    }
 }
 
 export const checkAuthenticated = () => async dispatch => {

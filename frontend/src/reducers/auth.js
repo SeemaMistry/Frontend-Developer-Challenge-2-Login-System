@@ -21,7 +21,13 @@ export default function (state=initalState, action){
                 ...state,
                 isAuthenticated: true
             }
+        case REGISTER_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: false
+            }
         
+        case REGISTER_FAIL:
         case LOGIN_FAIL:
         default:
             return state
