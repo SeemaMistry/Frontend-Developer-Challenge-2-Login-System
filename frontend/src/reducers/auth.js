@@ -9,7 +9,7 @@ import {
     AUTHENTICATED_FAIL
 } from '../actions/types'
 
-initalState = {
+const initalState = {
     isAuthenticated: null
 }
 
