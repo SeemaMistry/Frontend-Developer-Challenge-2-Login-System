@@ -21,6 +21,35 @@ export const checkAuthenticated = () => async dispatch => {
 
 export const login = (login_input, password) => async dispatch => {
     // login success and fail
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            // TODO: retrieve csrf token
+        }
+    }
+
+    const body = JSON.stringify({login_input, password})
+    try {
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/accounts/login`, body, config)
+        
+        if (res.data.error) {
+            dispatch({
+                type: LOGIN_FAIL
+            })
+        } else {
+            dispatch({
+                type: LOGIN_SUCCESS,
+            })
+            // TODO: load the user data
+        }
+    
+    } catch (err) {
+        dispatch({
+            type: LOGIN_FAIL
+        })
+    }
+   
 }
 
 export const logout = () => async dispatch => {
