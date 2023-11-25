@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 
-import React from 'react'
-
 const CSRFToken = () => {
     // save token to state
     const [csrftoken, setcsrftoken] = useState('')
