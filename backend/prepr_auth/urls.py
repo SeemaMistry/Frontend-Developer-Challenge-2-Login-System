@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.views.generic import TemplateView
 
 urlpatterns = [
@@ -8,6 +8,6 @@ urlpatterns = [
 ]
 
 # catch-all route for react router to handle
-# urlpatterns += [
-#     re_path(r'^.*', TemplateView.as_view(template_name='index.html'))
-# ]
+urlpatterns += [
+    re_path(r'^.*', TemplateView.as_view(template_name='index.html'))
+]
