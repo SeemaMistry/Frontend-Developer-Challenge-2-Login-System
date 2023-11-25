@@ -42,7 +42,7 @@ const Register = () => {
           <input
             className='form-control'
             type='text'
-            placeholder='username'
+            placeholder='Username'
             onChange={onChange}
             // value={username}
             name='username'
@@ -54,7 +54,7 @@ const Register = () => {
           <input
             className='form-control'
             type='password'
-            placeholder='password'
+            placeholder='Password'
             onChange={onChange}
             // value={password}
             name='password'
@@ -67,7 +67,7 @@ const Register = () => {
           <input
             className='form-control'
             type='password'
-            placeholder='confirm password'
+            placeholder='Confirm password'
             onChange={onChange}
             // value={re_password}
             name='re_password'
@@ -80,14 +80,13 @@ const Register = () => {
           <input
             className='form-control'
             type='email'
-            placeholder='email'
+            placeholder='Email'
             onChange={onChange}
             // value={email}
             name='email'
             required
           />
         </div>
-  {/* TODO: set proper inputs then commit these select option dropdowns to git */}
        <div className="form-floating my-3">
           <select required className="form-select" id="floatingSelect" aria-label="Floating label select example">
             <option selected>Select user type</option>
