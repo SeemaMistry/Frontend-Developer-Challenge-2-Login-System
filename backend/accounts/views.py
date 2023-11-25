@@ -38,7 +38,7 @@ class RegisterView(APIView):
         password = data['password'] # TODO: normalize username to database before saving
         re_password = data['re_password']
         email = data['email'] # TODO: normalize email to lowercase before saving to database
-        userType = data['userType'] # TODO: set in user_profile
+        user_type = data['user_type'] # TODO: set in user_profile
         language = data['language'] #TODO: set in user_profile
 
         try:
@@ -60,7 +60,7 @@ class RegisterView(APIView):
                             last_name=last_name,
                             username=username,
                             email=email,
-                            userType=userType,
+                            user_type=user_type,
                             language=language
                             )
                         user_profile.save()

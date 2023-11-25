@@ -10,7 +10,7 @@ class UserProfile(models.Model):
     last_name = models.CharField(max_length=225, default='')
     username = models.CharField(max_length=20, default='')
     email = models.EmailField(max_length=225, default='')
-    userType = models.CharField(max_length=50, default='')
+    user_type = models.CharField(max_length=50, default='')
     language = models.CharField(max_length=25, default='')
 
     def __str__(self):
