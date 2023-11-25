@@ -2,9 +2,9 @@ import React from 'react'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 
 import Layout from './hocs/Layout'
-import Login from './components/Login'
-import Register from './components/Register'
-import User from './components/User'
+import Login from './containers/Login'
+import Register from './containers/Register'
+import User from './containers/User'
 
 const App = () => {
   return (
