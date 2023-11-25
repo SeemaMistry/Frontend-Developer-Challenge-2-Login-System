@@ -25,7 +25,7 @@ export const login = (login_input, password) => async dispatch => {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            // TODO: retrieve csrf token
+            'X-CSRFToken': Cookies.get('csrftoken')
         }
     }
 

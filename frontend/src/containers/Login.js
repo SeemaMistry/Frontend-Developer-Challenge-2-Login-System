@@ -1,7 +1,10 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import { login } from '../actions/auth'
+import CSRFToken from '../components/CSRFToken'
 
-const Login = () => {
+const Login = ({login}) => {
   // get user inputs from form
   const [formData, setFormData] = useState({
     login_input: '',
@@ -12,13 +15,17 @@ const Login = () => {
 
   const onChange = e => setFormData({...formData, [e.target.name]:e.target.value})
 
-  const onSubmit = e => {}
+  const onSubmit = e => {
+    e.preventDefault()
+    login(login_input, password)
+  }
 
   return (
     <div className='container mt-5'>
       <h1>Sign In</h1>
       <p>Sign in to your Prepr Labs application</p>
       <form onSubmit={onSubmit}>
+        <CSRFToken />
         <div className='form-group'>
           <label className='form-label mt-3'>Login with your username or email: </label>
           <input
@@ -53,4 +60,10 @@ const Login = () => {
   )
 }
 
-export default Login
+const mapStateToProps = (state) => (
+  {
+    isAuthenticated: state.auth.isAuthenticated
+  }
+)
+
+export default connect(mapStateToProps, {login})(Login)
