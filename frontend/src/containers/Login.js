@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Navigate} from 'react-router-dom'
 import {connect} from 'react-redux'
 import { login } from '../actions/auth'
 import CSRFToken from '../components/CSRFToken'
 
-const Login = ({login}) => {
+const Login = ({login, isAuthenticated}) => {
   // get user inputs from form
   const [formData, setFormData] = useState({
     login_input: '',
@@ -22,6 +22,7 @@ const Login = ({login}) => {
 
   return (
     <div className='container mt-5'>
+      {isAuthenticated ? <Navigate to='/user' replace/> : <Navigate to='/login' replace/>}
       <h1>Sign In</h1>
       <p>Sign in to your Prepr Labs application</p>
       <form onSubmit={onSubmit}>
