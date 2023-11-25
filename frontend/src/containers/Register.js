@@ -1,11 +1,35 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Link, Navigate} from 'react-router-dom'
+import {connect} from 'react-redux'
+import { register } from '../actions/auth'
+import CSRFToken from '../components/CSRFToken'
 
-const Register = () => {
-  const accountCreated = false
-  const onChange = e => {}
+const Register = ({register}) => {
+  // set formData state
+  const [formData, setFormData] = useState({
+    first_name: '',
+    last_name: '',
+    username: '',
+    password: '',
+    re_password: '',
+    email: '',
+    user_type: '',
+    language: ''
+  })
 
-  const onSubmit = e => {}
+  const [accountCreated, setAccountCreated] = useState(false) // redirect to login page if successful account created
+  const {first_name, last_name, username, password, re_password, email, user_type, language} = formData // destructure forData
+
+  const onChange = e => setFormData({...formData, [e.target.name]: e.target.value})
+
+  const onSubmit = e => {
+    e.preventDefault()
+     // validate user-inputs for registration
+     if (password === re_password) {
+      register(first_name, last_name, username, password, re_password, email, user_type, language)
+      setAccountCreated(true)
+    } 
+  }
 
   return (
     <div className='container mt-5'>
@@ -13,15 +37,16 @@ const Register = () => {
       <h1>Register for an Account</h1>
       <p>Create an account with PreprLabs</p>
       <form onSubmit={onSubmit}>
+        <CSRFToken/>
       <div className='form-group'>
           <label className='form-label mt-3'>First Name: </label>
           <input
             className='form-control'
             type='text'
-            placeholder='First Name'
+            placeholder='First name'
             onChange={onChange}
-            // value={firstName}
-            name='firstName'
+            value={first_name}
+            name='first_name'
             required
           />
         </div>
@@ -30,10 +55,10 @@ const Register = () => {
           <input
             className='form-control'
             type='text'
-            placeholder='Last Name'
+            placeholder='Last name'
             onChange={onChange}
-            // value={lastName}
-            name='lastName'
+            value={last_name}
+            name='last_name'
             required
           />
         </div>
@@ -44,7 +69,7 @@ const Register = () => {
             type='text'
             placeholder='Username'
             onChange={onChange}
-            // value={username}
+            value={username}
             name='username'
             required
           />
@@ -56,7 +81,7 @@ const Register = () => {
             type='password'
             placeholder='Password'
             onChange={onChange}
-            // value={password}
+            value={password}
             name='password'
             minLength='6'
             required
@@ -69,7 +94,7 @@ const Register = () => {
             type='password'
             placeholder='Confirm password'
             onChange={onChange}
-            // value={re_password}
+            value={re_password}
             name='re_password'
             minLength='6'
             required
@@ -82,13 +107,13 @@ const Register = () => {
             type='email'
             placeholder='Email'
             onChange={onChange}
-            // value={email}
+            value={email}
             name='email'
             required
           />
         </div>
        <div className="form-floating my-4">
-          <select required className="form-select" id="floatingSelect" aria-label="Floating label select example">
+          <select required className="form-select" id="floatingSelect" aria-label="Floating label select example" name='user_type' onChange={onChange}>
             <option selected>Select user type</option>
             <option value='Learner'>Learner</option>
             <option value='Job Seeker / Applicant'>Job Seeker / Applicant</option>
@@ -101,7 +126,7 @@ const Register = () => {
         </div>
 
         <div className="form-floating my-3">
-          <select className="form-select" id="floatingSelect" aria-label="Floating label select example">
+          <select className="form-select" id="floatingSelect" aria-label="Floating label select example" name='language' onChange={onChange}>
             <option selected>Select a language</option>
             <option value='English'>English</option>
             <option value='French'>French</option>
@@ -118,4 +143,10 @@ const Register = () => {
   )
 }
 
-export default Register
+const mapStateToProps = state => (
+  {
+    isAuthenticated: state.auth.isAuthenticated
+  }
+)
+
+export default connect(mapStateToProps, {register})(Register)
