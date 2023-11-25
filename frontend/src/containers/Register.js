@@ -87,7 +87,7 @@ const Register = () => {
             required
           />
         </div>
-       <div className="form-floating my-3">
+       <div className="form-floating my-4">
           <select required className="form-select" id="floatingSelect" aria-label="Floating label select example">
             <option selected>Select user type</option>
             <option value='Learner'>Learner</option>
@@ -100,7 +100,7 @@ const Register = () => {
           <label for="floatingSelect">Required</label>
         </div>
 
-        <div className="form-floating">
+        <div className="form-floating my-3">
           <select className="form-select" id="floatingSelect" aria-label="Floating label select example">
             <option selected>Select a language</option>
             <option value='English'>English</option>
