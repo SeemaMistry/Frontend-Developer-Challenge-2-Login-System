@@ -32,12 +32,12 @@ const Register = ({register}) => {
   const [validMatch, setValidMatch] = useState(false);
   const [matchFocus, setMatchFocus] = useState(false);
 
-
   // as user types, check password validity against REGEX and that passwords match
   useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd));
     setValidMatch(pwd === matchPwd);
   }, [pwd, matchPwd])
+
 
   // validate username to not allow special characters
   const onChangeUsername = e => setFormData({...formData, [e.target.name]: e.target.value.replace(/[^\w\s]/gi, "")})
