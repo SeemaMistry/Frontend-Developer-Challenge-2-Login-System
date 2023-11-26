@@ -101,8 +101,8 @@ const Login = ({login, isAuthenticated}) => {
         onError={() => {
           console.log('Login Failed');
         }}
-      />;
-      {isSocialLoginSuccess ? <Navigate to='/SSOUser' replace/> : <p>Unsucessful social login</p>}
+      />
+      {isSocialLoginSuccess ? <Navigate to='/SSOUser' replace/> : <p></p>}
 
 
         </div>

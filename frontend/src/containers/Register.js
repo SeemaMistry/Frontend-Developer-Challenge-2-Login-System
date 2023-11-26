@@ -150,7 +150,7 @@ const Register = ({register}) => {
             required
           />
         </div>
-       <div className="form-floating my-4">
+       <div className="form-floating my-3">
           <select required className="form-select" id="floatingSelect" aria-label="Floating label select example" name='user_type' onChange={onChange}>
             <option selected>Select user type</option>
             <option value='Learner'>Learner</option>
@@ -176,6 +176,9 @@ const Register = ({register}) => {
       </form>
       <p className='mt-3'>
         Already have an account? <Link to={'/login'}>Sign In</Link>
+      </p>
+      <p className='mt-3'>
+        Or sign in with your Google Account on the Login Page: <Link to={'/login'}>Google Sign In</Link>
       </p>
     </div>
   )
