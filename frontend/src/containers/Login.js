@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import logo from '../assets/logoNew.png'
+import bannerImg from '../assets/bannerImage.png'
 import {Link, Navigate} from 'react-router-dom'
 import {connect} from 'react-redux'
 import { login } from '../actions/auth'
@@ -55,63 +56,68 @@ const Login = ({login, isAuthenticated}) => {
   }
 
   return (
-    <div className='container mt-5 bg-light col-md-4 p-5'>
+    <div className='row'>
       {isAuthenticated ? <Navigate to='/user' replace/> : <Navigate to='/login' replace/>}
-      <div className='text-center'>
-        <img src={logo} className='bg-white' alt='Prepr Logo'/>
+      <div className='col-md-6 mt-5'>
+        <img className='img-thumbnail' src={bannerImg} alt=''/>
       </div>
-      <h1>Sign In</h1>
-      <p>Sign in to your Prepr Labs application</p>
-      <form onSubmit={onSubmit}>
-        <CSRFToken />
-        <div className='form-group'>
-          <label className='form-label mt-3'>Login with your username or email: </label>
-          <input
-            className='form-control'
-            type='text'
-            placeholder='username or email'
-            onChange={onChange}
-            value={login_input}
-            name='login_input'
-            required
-          />
+      <div id='dontTouchForm' className='mt-5 bg-light col-md-4 offset-md-1 p-5'>
+        <div className='text-center'>
+          <img src={logo} className='bg-white' alt='Prepr Logo'/>
         </div>
-        <div className='form-group'>
-          <label className='form-label mt-3'>Password: </label>
-          <input
-            className='form-control'
-            type='password'
-            placeholder='password'
-            onChange={onChange}
-            value={password}
-            name='password'
-            minLength='6'
-            required
-          />
-        </div>
-        <div className="d-grid gap-2 mb-3">
-          <button className='btn btn-warning mt-3' type='submit'>Sign In</button>
-        </div>
-      </form>
-      
-      <div>
-        <div >
-          <p>or</p>
-          <GoogleLogin
-            onSuccess={credentialResponse => {
-              console.log(credentialResponse);
-              onSignIn(credentialResponse)
-            }}
-            onError={() => {
-              console.log('Login Failed');
-            }}
-          />
-          {isSocialLoginSuccess ? <Navigate to='/SSOUser' replace/> : <p></p>}
-        </div>
+        <h1>Sign In</h1>
+        <p>Sign in to your Prepr Labs application</p>
+        <form onSubmit={onSubmit}>
+          <CSRFToken />
+          <div className='form-group'>
+            <label className='form-label mt-3'>Login with your username or email: </label>
+            <input
+              className='form-control'
+              type='text'
+              placeholder='username or email'
+              onChange={onChange}
+              value={login_input}
+              name='login_input'
+              required
+            />
+          </div>
+          <div className='form-group'>
+            <label className='form-label mt-3'>Password: </label>
+            <input
+              className='form-control'
+              type='password'
+              placeholder='password'
+              onChange={onChange}
+              value={password}
+              name='password'
+              minLength='6'
+              required
+            />
+          </div>
+          <div className="d-grid gap-2 mb-3">
+            <button className='btn btn-warning mt-3' type='submit'>Sign In</button>
+          </div>
+        </form>
+        
+        <div>
+          <div >
+            <p>or</p>
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                console.log(credentialResponse);
+                onSignIn(credentialResponse)
+              }}
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            />
+            {isSocialLoginSuccess ? <Navigate to='/SSOUser' replace/> : <p></p>}
+          </div>
 
-        <p className='mt-0'>
-          Don't have an account? <Link to={'/register'}>Register</Link>
-        </p>
+          <p className='mt-0'>
+            Don't have an account? <Link to={'/register'}>Register</Link>
+          </p>
+        </div>
       </div>
     </div>
   )
