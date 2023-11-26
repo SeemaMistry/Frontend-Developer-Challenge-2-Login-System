@@ -6,25 +6,23 @@ import CSRFToken from '../components/CSRFToken'
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,14}$/;
-// pass#orD50
+// pass#orD50 this password passes the REGEX
 
 const Register = ({register}) => {
-  // set formData state
+  // set formData state (passwords are handled separatly)
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
     username: '',
-    // password: '',
-    // re_password: '',
     email: '',
     user_type: '',
     language: ''
   })
 
   const [accountCreated, setAccountCreated] = useState(false) // redirect to login page if successful account created
-  // const {first_name, last_name, username, password, re_password, email, user_type, language} = formData // destructure forData
   const {first_name, last_name, username, email, user_type, language} = formData
 
+  // set password and matched password as separate states with validator and focus states
   const [pwd, setPwd] = useState('');
   const [validPwd, setValidPwd] = useState(false);
   const [pwdFocus, setPwdFocus] = useState(false);
@@ -34,31 +32,23 @@ const Register = ({register}) => {
   const [matchFocus, setMatchFocus] = useState(false);
 
 
+  // as user types, check password validity against REGEX and that passwords match
   useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd));
     setValidMatch(pwd === matchPwd);
-}, [pwd, matchPwd])
+  }, [pwd, matchPwd])
 
-
+  // validate username to not allow special characters
   const onChangeUsername = e => setFormData({...formData, [e.target.name]: e.target.value.replace(/[^\w\s]/gi, "")})
+  // generic formData set values
   const onChange = e => setFormData({...formData, [e.target.name]: e.target.value})
 
+  // submit valid data and set account created to true and redirect to login page
   const onSubmit = e => {
     e.preventDefault()
     register(first_name, last_name, username, pwd, matchPwd, email, user_type, language)
-    setAccountCreated(true)
-
-     // validate user-inputs for registration
-    //  if (password === re_password) {
-    //   register(first_name, last_name, username, password, re_password, email, user_type, language)
-    //   setAccountCreated(true)
-    // } 
-    
+    setAccountCreated(true)    
   }
-
-
-
-
 
   return (
     <div className='container mt-5'>
