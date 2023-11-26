@@ -52,7 +52,7 @@ const Register = ({register}) => {
   }
 
   return (
-    <div className='container mt-5 bg-light w-50 p-5'>
+    <div className='container col-md-4 mt-5 bg-light p-5'>
       {accountCreated && <Navigate to='/login' replace/>}
       <div className='text-center'>
         <img src={logo} className='bg-white' alt='Prepr Logo'/>

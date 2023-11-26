@@ -55,7 +55,7 @@ const Login = ({login, isAuthenticated}) => {
   }
 
   return (
-    <div className='container mt-5 bg-light w-50 p-5'>
+    <div className='container mt-5 bg-light col-md-4 p-5'>
       {isAuthenticated ? <Navigate to='/user' replace/> : <Navigate to='/login' replace/>}
       <div className='text-center'>
         <img src={logo} className='bg-white' alt='Prepr Logo'/>
