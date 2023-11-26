@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import logo from '../assets/logoNew.png'
 import {Link, Navigate} from 'react-router-dom'
 import {connect} from 'react-redux'
 import { login } from '../actions/auth'
@@ -54,8 +55,11 @@ const Login = ({login, isAuthenticated}) => {
   }
 
   return (
-    <div className='container mt-5'>
+    <div className='container mt-5 bg-light w-50 p-5'>
       {isAuthenticated ? <Navigate to='/user' replace/> : <Navigate to='/login' replace/>}
+      <div className='text-center'>
+        <img src={logo} className='bg-white' alt='Prepr Logo'/>
+      </div>
       <h1>Sign In</h1>
       <p>Sign in to your Prepr Labs application</p>
       <form onSubmit={onSubmit}>
@@ -85,27 +89,29 @@ const Login = ({login, isAuthenticated}) => {
             required
           />
         </div>
-        <button className='btn btn-primary mt-3' type='submit'>Sign In</button>
-      </form>
-      <p className='mt-3'>
-        Don't have an account? <Link to={'/register'}>Register</Link>
-      </p>
-      <p>or</p>
-      <div>
-        <div>
-      <GoogleLogin
-        onSuccess={credentialResponse => {
-          console.log(credentialResponse);
-          onSignIn(credentialResponse)
-        }}
-        onError={() => {
-          console.log('Login Failed');
-        }}
-      />
-      {isSocialLoginSuccess ? <Navigate to='/SSOUser' replace/> : <p></p>}
-
-
+        <div className="d-grid gap-2 mb-3">
+          <button className='btn btn-warning mt-3' type='submit'>Sign In</button>
         </div>
+      </form>
+      
+      <div>
+        <div >
+          <p>or</p>
+          <GoogleLogin
+            onSuccess={credentialResponse => {
+              console.log(credentialResponse);
+              onSignIn(credentialResponse)
+            }}
+            onError={() => {
+              console.log('Login Failed');
+            }}
+          />
+          {isSocialLoginSuccess ? <Navigate to='/SSOUser' replace/> : <p></p>}
+        </div>
+
+        <p className='mt-0'>
+          Don't have an account? <Link to={'/register'}>Register</Link>
+        </p>
       </div>
     </div>
   )
