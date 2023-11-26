@@ -23,7 +23,7 @@ export const register = (first_name, last_name, username, password, re_password,
     }
     const body = JSON.stringify({first_name, last_name, username, password, re_password, email, user_type, language})
     try{
-        const res = await axios.post(`${process.env.REACT_APP_API_URL}/accounts/register`, body, config)
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/accountsRegular/register`, body, config)
 
         if (res.data.error) {
             dispatch({
@@ -55,7 +55,7 @@ export const login = (login_input, password) => async dispatch => {
 
     const body = JSON.stringify({login_input, password})
     try {
-        const res = await axios.post(`${process.env.REACT_APP_API_URL}/accounts/login`, body, config)
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/accountsRegular/login`, body, config)
         
         if (res.data.error) {
             dispatch({
