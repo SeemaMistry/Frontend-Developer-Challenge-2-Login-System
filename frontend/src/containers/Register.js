@@ -3,6 +3,7 @@ import {Link, Navigate} from 'react-router-dom'
 import {connect} from 'react-redux'
 import { register } from '../actions/auth'
 import CSRFToken from '../components/CSRFToken'
+import logo from '../assets/logoNew.png'
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,14}$/;
@@ -51,8 +52,11 @@ const Register = ({register}) => {
   }
 
   return (
-    <div className='container mt-5'>
+    <div className='container mt-5 bg-light w-50 p-5'>
       {accountCreated && <Navigate to='/login' replace/>}
+      <div className='text-center'>
+        <img src={logo} className='bg-white' alt='Prepr Logo'/>
+      </div>
       <h1>Register for an Account</h1>
       <p>Create an account with PreprLabs</p>
       <form onSubmit={onSubmit}>
@@ -171,14 +175,21 @@ const Register = ({register}) => {
           </select>
           <label for="floatingSelect">Optional</label>
         </div>
-
-        <button className='btn btn-primary mt-3' type='submit'>Register</button>
+        <div className="d-grid gap-2 mb-3">
+          <button className='btn btn-warning mt-3' type='submit'>Register</button>
+        </div>
       </form>
+      
+      <div className="d-grid gap-2">
+          <p className='my-0 text-center'>
+            Or
+          </p>
+          <button className='btn btn-info mt-1' type='button'>
+            <Link style={{textDecoration: 'none', color: 'black'}} to={'/login'}>Sign in with your Google account</Link>
+          </button>
+      </div>
       <p className='mt-3'>
         Already have an account? <Link to={'/login'}>Sign In</Link>
-      </p>
-      <p className='mt-3'>
-        Or sign in with your Google Account on the Login Page: <Link to={'/login'}>Google Sign In</Link>
       </p>
     </div>
   )
