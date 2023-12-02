@@ -16,6 +16,10 @@ Login into your PrepLabs account using your username or email, or by Google SSO.
 - Postman (for API testing)
 - Visual Studio Code
 
+## Video Demos
+- Challenge 2 video demo (part 1) <a href='https://drive.google.com/file/d/1Oy_XRE6djYwf-C2lSysdcNuC3ZYt4LkH/view?usp=sharing' target="_blank">Click here</a> 
+  
+- Challenge 2 video demo (part 2) <a href='https://drive.google.com/file/d/1l8gpG1vdhcw9GCCFyxoSwotTdgtwiSvg/view?usp=sharing' target="_blank">Click here</a> 
 
 ## Screenshots
 Login Page
